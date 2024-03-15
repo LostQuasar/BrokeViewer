@@ -1,9 +1,9 @@
-import { Notice, Plugin, Vault, WorkspaceLeaf } from 'obsidian';
+import {Plugin, WorkspaceLeaf } from 'obsidian';
 
-import { BrokeListView } from 'BrokeListView';
-import { BrokeViewerSettingTab } from 'BrokeViewerSettingTab';
-import type { BrokeViewerSettings } from 'BrokeViewerSettings';
-import { DEFAULT_SETTINGS } from 'BrokeViewerSettings';
+import { BrokeListView } from 'src/BrokeListView';
+import { BrokeViewerSettingTab } from 'src/BrokeViewerSettingTab';
+import type { BrokeViewerSettings } from 'src/BrokeViewerSettings';
+import { DEFAULT_SETTINGS } from 'src/BrokeViewerSettings';
 
 export const BROKE_VIEW_TYPE = "broke-list-view";
 export const BROKE_ICON = "gift";

@@ -1,5 +1,5 @@
 import { ItemView, Notice, WorkspaceLeaf } from 'obsidian';
-import Component from "./Component.svelte";
+import Component from "../Component.svelte";
 import { BROKE_VIEW_TYPE, BROKE_ICON } from 'main';
 import type BrokeViewerPlugin from 'main';
 

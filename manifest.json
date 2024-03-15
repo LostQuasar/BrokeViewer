@@ -5,7 +5,7 @@
 	"minAppVersion": "0.15.0",
 	"description": "A thisiswhyimbroke inspired wishlist viewer.",
 	"author": "LostQuasar",
-	"authorUrl": "https://obsidian.md",
-	"fundingUrl": "https://obsidian.md/pricing",
+	"authorUrl": "https://github.com/LostQuasar",
+	"fundingUrl": "https://github.com/sponsors/LostQuasar/",
 	"isDesktopOnly": false
 }
