@@ -1,5 +1,5 @@
 import { App, PluginSettingTab, Setting } from 'obsidian';
-import BrokeViewerPlugin from 'main';
+import BrokeViewerPlugin from 'src/main';
 
 export class BrokeViewerSettingTab extends PluginSettingTab {
 	plugin: BrokeViewerPlugin;
@@ -16,13 +16,25 @@ export class BrokeViewerSettingTab extends PluginSettingTab {
 
 		new Setting(containerEl)
 			.setName('Columns')
-			.setDesc('How many columns of items to show')
+			.setDesc('How many columns of items to show on desktop')
 			.addSlider((slider) => slider
-				.setLimits(1, 12, 1)
-				.setValue(this.plugin.settings.cols)
+				.setLimits(2, 12, 1)
+				.setValue(this.plugin.settings.desktop_cols)
 				.setDynamicTooltip()
 				.onChange(async (value) => {
-					this.plugin.settings.cols = value;
+					this.plugin.settings.desktop_cols = value;
+					await this.plugin.saveSettings();
+				})
+			);
+			new Setting(containerEl)
+			.setName('Mobile Columns')
+			.setDesc('How many columns of items to show on mobile.')
+			.addSlider((slider) => slider
+				.setLimits(1, 12, 1)
+				.setValue(this.plugin.settings.mobile_cols)
+				.setDynamicTooltip()
+				.onChange(async (value) => {
+					this.plugin.settings.mobile_cols = value;
 					await this.plugin.saveSettings();
 				})
 			);

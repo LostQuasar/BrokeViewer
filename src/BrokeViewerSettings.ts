@@ -1,8 +1,10 @@
 export interface BrokeViewerSettings {
-	cols: number;
+	desktop_cols: number;
+	mobile_cols: number;
 	list_folder: string;
 }
 export const DEFAULT_SETTINGS: BrokeViewerSettings = {
-	cols: 4,
-	list_folder: "list/",
+	desktop_cols: 4,
+	mobile_cols: 2,
+	list_folder: "list",
 };

@@ -1,7 +1,7 @@
-import { ItemView, Notice, WorkspaceLeaf } from 'obsidian';
-import Component from "../Component.svelte";
-import { BROKE_VIEW_TYPE, BROKE_ICON } from 'main';
-import type BrokeViewerPlugin from 'main';
+import { ItemView, Notice, WorkspaceLeaf, Platform } from 'obsidian';
+import Component from "./Component.svelte";
+import { BROKE_VIEW_TYPE, BROKE_ICON } from 'src/main';
+import type BrokeViewerPlugin from 'src/main';
 
 export class BrokeListView extends ItemView {
 	component!: Component;
@@ -25,10 +25,17 @@ export class BrokeListView extends ItemView {
 	}
 	async onOpen() {
 		let data = await this.parseData();
+		let cols: Number;
+		if (!Platform.isDesktop){
+			cols = this.plugin.settings.mobile_cols;
+		}
+		else {
+			cols = this.plugin.settings.desktop_cols;
+		}
 		this.component = new Component({
 			target: this.contentEl,
 			props: {
-				cols: this.plugin.settings.cols,
+				cols: cols,
 				data: data,
 			}
 		});

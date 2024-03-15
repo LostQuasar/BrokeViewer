@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { onMount } from "svelte";
+	import { afterUpdate, onMount } from "svelte";
 	export let cols: Number;
 	export let data: string[][];
 	let gridDiv: HTMLDivElement;
@@ -23,9 +23,9 @@
 
 		return array;
 	}
-
-	onMount(() => {
+	function updateScreen() {
 		shuffle(data);
+
 		const arrayDiv: HTMLDivElement[] = [];
 		const arrayP: HTMLParagraphElement[] = [];
 		const arrayA: HTMLAnchorElement[] = [];
@@ -43,7 +43,10 @@
 				.appendChild(arrayDiv[i])
 				.appendChild(arrayP[i]);
 		}
-	});
+	}
+	
+	onMount(() => { updateScreen() });
+
 </script>
 
 <div bind:this={gridDiv} class="grid" style="--cols:{cols}"></div>
