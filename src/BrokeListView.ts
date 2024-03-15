@@ -63,7 +63,7 @@ export class BrokeListView extends ItemView {
 				new Notice("Price could not be read in  " + folderChild.path)
 				throw new Error('Price could not be read.');
 			};
-			let img = fileData.match(/!\[.+?\]\((.+?)\)/)
+			let img = fileData.match(/!\[.*?\]\((.+?)\)/)
 			if (!img) {
 				new Notice("Image url could not be read in  " + folderChild.path)
 				throw new Error('Image url could not be read.');
