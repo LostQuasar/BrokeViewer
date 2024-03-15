@@ -15,14 +15,14 @@ export class BrokeViewerSettingTab extends PluginSettingTab {
 		containerEl.empty();
 
 		new Setting(containerEl)
-			.setName('Rows')
-			.setDesc('How many rows of items to show')
+			.setName('Columns')
+			.setDesc('How many columns of items to show')
 			.addSlider((slider) => slider
 				.setLimits(1, 12, 1)
-				.setValue(this.plugin.settings.rows)
+				.setValue(this.plugin.settings.cols)
 				.setDynamicTooltip()
 				.onChange(async (value) => {
-					this.plugin.settings.rows = value;
+					this.plugin.settings.cols = value;
 					await this.plugin.saveSettings();
 				})
 			);

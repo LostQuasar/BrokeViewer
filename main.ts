@@ -46,6 +46,20 @@ export default class BrokeViewerPlugin extends Plugin {
 		workspace.revealLeaf(leaf);
 	}
 
+	async updateView() {
+		const { workspace } = this.app;
+
+		let leaf: WorkspaceLeaf | null = null;
+		const leaves = workspace.getLeavesOfType(BROKE_VIEW_TYPE);
+
+		if (leaves.length > 0) {
+			leaf = leaves[0];
+		} else {
+			leaf = workspace.getLeaf(false);
+			await leaf.setViewState({ type: BROKE_VIEW_TYPE });
+		}
+	}
+
 	onunload() {
 
 	}
@@ -56,6 +70,7 @@ export default class BrokeViewerPlugin extends Plugin {
 
 	async saveSettings() {
 		await this.saveData(this.settings);
+		
 	}
 }
 
