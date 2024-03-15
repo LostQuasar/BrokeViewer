@@ -5,11 +5,9 @@ import type BrokeViewerPlugin from 'src/main';
 
 export class BrokeListView extends ItemView {
 	component!: Component;
-	plugin: BrokeViewerPlugin;
 
-	constructor(leaf: WorkspaceLeaf, plugin: BrokeViewerPlugin) {
-		super(leaf);
-		this.plugin = plugin;
+	constructor(leaf: WorkspaceLeaf, public plugin: BrokeViewerPlugin) {
+        super(leaf);
 	}
 
 	getViewType() {
