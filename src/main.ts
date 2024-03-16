@@ -17,6 +17,7 @@ export default class BrokeViewerPlugin extends Plugin {
 		const ribbonViewerIcon = this.addRibbonIcon(BROKE_ICON, 'Broke Viewer', (evt: MouseEvent) => {
 			this.activateView();
 		});
+
 		ribbonViewerIcon.addClass('broke-viewer-ribbon');
 
 		this.addSettingTab(new BrokeViewerSettingTab(this.app, this));
@@ -29,6 +30,15 @@ export default class BrokeViewerPlugin extends Plugin {
 		this.registerInterval(window.setInterval(() => console.log('setInterval'), 5 * 60 * 1000));
 	}
 
+	reloadView() {
+		const { workspace } = this.app;
+
+		let leaf: WorkspaceLeaf | null = null;
+		const leaves = workspace.getLeavesOfType(BROKE_VIEW_TYPE);
+		if (leaves.length > 0) {
+			leaf = leaves[0]; leaf.getViewState
+		} 
+	}
 
 	async activateView() {
 		const { workspace } = this.app;
@@ -46,20 +56,6 @@ export default class BrokeViewerPlugin extends Plugin {
 		workspace.revealLeaf(leaf);
 	}
 
-	async updateView() {
-		const { workspace } = this.app;
-
-		let leaf: WorkspaceLeaf | null = null;
-		const leaves = workspace.getLeavesOfType(BROKE_VIEW_TYPE);
-
-		if (leaves.length > 0) {
-			leaf = leaves[0];
-		} else {
-			leaf = workspace.getLeaf(false);
-			await leaf.setViewState({ type: BROKE_VIEW_TYPE });
-		}
-	}
-
 	onunload() {
 
 	}
@@ -70,7 +66,6 @@ export default class BrokeViewerPlugin extends Plugin {
 
 	async saveSettings() {
 		await this.saveData(this.settings);
-		
 	}
 }
 

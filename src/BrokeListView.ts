@@ -7,7 +7,7 @@ export class BrokeListView extends ItemView {
 	component!: Component;
 
 	constructor(leaf: WorkspaceLeaf, public plugin: BrokeViewerPlugin) {
-        super(leaf);
+		super(leaf);
 	}
 
 	getViewType() {
@@ -21,10 +21,11 @@ export class BrokeListView extends ItemView {
 	getIcon(): string {
 		return BROKE_ICON;
 	}
+
 	async onOpen() {
 		let data = await this.parseData();
 		let cols: Number;
-		if (!Platform.isDesktop){
+		if (!Platform.isDesktop) {
 			cols = this.plugin.settings.mobile_cols;
 		}
 		else {
@@ -37,8 +38,8 @@ export class BrokeListView extends ItemView {
 				data: data,
 			}
 		});
-
 	}
+
 
 	async onClose() {
 		this.component.$destroy();
@@ -69,7 +70,7 @@ export class BrokeListView extends ItemView {
 				throw new Error('Image url could not be read.');
 			};
 
-			itemArray.push([file.name.replace('.md',''),price[1],img[1],'obsidian://open?vault='+this.app.vault.getName()+'&file='+(encodeURI(file.path))])
+			itemArray.push([file.name.replace('.md', ''), price[1], img[1], 'obsidian://open?vault=' + this.app.vault.getName() + '&file=' + (encodeURI(file.path))])
 		});
 		return itemArray
 	}
