@@ -1,6 +1,6 @@
-import {Plugin, WorkspaceLeaf } from 'obsidian';
+import { Plugin, WorkspaceLeaf } from 'obsidian';
 
-import { BrokeListView } from 'src/BrokeListView';
+import { BrokeListView, data_store } from 'src/BrokeListView';
 import { BrokeViewerSettingTab } from 'src/BrokeViewerSettingTab';
 import type { BrokeViewerSettings } from 'src/BrokeViewerSettings';
 import { DEFAULT_SETTINGS } from 'src/BrokeViewerSettings';
@@ -14,12 +14,6 @@ export default class BrokeViewerPlugin extends Plugin {
 	async onload() {
 		await this.loadSettings();
 
-		const ribbonViewerIcon = this.addRibbonIcon(BROKE_ICON, 'Broke Viewer', (evt: MouseEvent) => {
-			this.activateView();
-		});
-
-		ribbonViewerIcon.addClass('broke-viewer-ribbon');
-
 		this.addSettingTab(new BrokeViewerSettingTab(this.app, this));
 
 		this.registerView(
@@ -27,17 +21,12 @@ export default class BrokeViewerPlugin extends Plugin {
 			(leaf) => new BrokeListView(leaf, this)
 		);
 
-		this.registerInterval(window.setInterval(() => console.log('setInterval'), 5 * 60 * 1000));
-	}
+		const ribbonViewerIcon = this.addRibbonIcon(BROKE_ICON, 'Broke Viewer', (evt: MouseEvent) => {
+			this.activateView();
+		});
 
-	reloadView() {
-		const { workspace } = this.app;
+		ribbonViewerIcon.addClass('broke-viewer-ribbon');
 
-		let leaf: WorkspaceLeaf | null = null;
-		const leaves = workspace.getLeavesOfType(BROKE_VIEW_TYPE);
-		if (leaves.length > 0) {
-			leaf = leaves[0]; leaf.getViewState
-		} 
 	}
 
 	async activateView() {
@@ -50,14 +39,9 @@ export default class BrokeViewerPlugin extends Plugin {
 			leaf = leaves[0];
 		} else {
 			leaf = workspace.getLeaf(true);
-			await leaf.setViewState({ type: BROKE_VIEW_TYPE });
+			await leaf.setViewState({ type: BROKE_VIEW_TYPE }, true);
 		}
-
 		workspace.revealLeaf(leaf);
-	}
-
-	onunload() {
-
 	}
 
 	async loadSettings() {

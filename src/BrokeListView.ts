@@ -2,6 +2,11 @@ import { ItemView, Notice, WorkspaceLeaf, Platform } from 'obsidian';
 import Component from "./Component.svelte";
 import { BROKE_VIEW_TYPE, BROKE_ICON } from 'src/main';
 import type BrokeViewerPlugin from 'src/main';
+import { writable } from 'svelte/store';
+import { EventEmitter } from 'stream';
+import { error } from 'console';
+
+export const data_store = writable([[""]]);
 
 export class BrokeListView extends ItemView {
 	component!: Component;
@@ -23,7 +28,7 @@ export class BrokeListView extends ItemView {
 	}
 
 	async onOpen() {
-		let data = await this.parseData();
+		await this.parseData();
 		let cols: Number;
 		if (!Platform.isDesktop) {
 			cols = this.plugin.settings.mobile_cols;
@@ -34,15 +39,9 @@ export class BrokeListView extends ItemView {
 		this.component = new Component({
 			target: this.contentEl,
 			props: {
-				cols: cols,
-				data: data,
+				cols: cols
 			}
 		});
-	}
-
-
-	async onClose() {
-		this.component.$destroy();
 	}
 
 	async parseData() {
@@ -52,6 +51,9 @@ export class BrokeListView extends ItemView {
 			new Notice("Folder " + this.plugin.settings.list_folder + " could not be read.")
 			throw new Error('Folder could not be read.');
 		};
+		if (listFolder.children.length == 0){
+			new Notice("Folder Empty");
+		}
 		listFolder.children.forEach(async folderChild => {
 			let file = this.app.vault.getFileByPath(folderChild.path);
 			if (!file) {
@@ -72,7 +74,7 @@ export class BrokeListView extends ItemView {
 
 			itemArray.push([file.name.replace('.md', ''), price[1], img[1], 'obsidian://open?vault=' + this.app.vault.getName() + '&file=' + (encodeURI(file.path))])
 		});
-		return itemArray
+		data_store.set(itemArray);
 	}
 }
 
