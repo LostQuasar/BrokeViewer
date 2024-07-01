@@ -2,11 +2,12 @@ import { ItemView, Notice, WorkspaceLeaf, Platform } from 'obsidian';
 import Component from "./Component.svelte";
 import { BROKE_VIEW_TYPE, BROKE_ICON } from 'src/main';
 import type BrokeViewerPlugin from 'src/main';
-import { writable } from 'svelte/store';
+import { writable, type Writable } from 'svelte/store';
 import { EventEmitter } from 'stream';
 import { error } from 'console';
+import { notEqual } from 'assert';
 
-export const data_store = writable([[""]]);
+export const data_store: Writable<string[][]> = writable([]);
 
 export class BrokeListView extends ItemView {
 	component!: Component;
@@ -28,7 +29,6 @@ export class BrokeListView extends ItemView {
 	}
 
 	async onOpen() {
-		await this.parseData();
 		let cols: Number;
 		if (!Platform.isDesktop) {
 			cols = this.plugin.settings.mobile_cols;
@@ -42,6 +42,10 @@ export class BrokeListView extends ItemView {
 				cols: cols
 			}
 		});
+	}
+
+	onload(): void {
+		this.parseData();
 	}
 
 	async parseData() {

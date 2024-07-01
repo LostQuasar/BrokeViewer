@@ -4,7 +4,9 @@
 	export let cols: Number;
 	let data_value: string[][];
 
-	data_store.subscribe((data: string[][]) => {data_value = data});
+	data_store.subscribe((data_store: string[][]) => {
+		data_value = data_store;
+	});
 	let gridDiv: HTMLDivElement;
 
 	function shuffle(array: string[][]) {
@@ -27,8 +29,6 @@
 		return array;
 	}
 	function updateScreen() {
-		shuffle(data_value);
-
 		const arrayDiv: HTMLDivElement[] = [];
 		const arrayP: HTMLParagraphElement[] = [];
 		const arrayA: HTMLAnchorElement[] = [];
@@ -48,7 +48,7 @@
 		}
 	}
 	
-	onMount(() => { updateScreen() });
+	onMount(() => { updateScreen()});
 
 </script>
 
