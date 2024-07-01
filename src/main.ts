@@ -1,4 +1,4 @@
-import { Plugin, WorkspaceLeaf } from 'obsidian';
+import {Plugin, WorkspaceLeaf } from 'obsidian';
 
 import { BrokeListView, data_store } from 'src/BrokeListView';
 import { BrokeViewerSettingTab } from 'src/BrokeViewerSettingTab';

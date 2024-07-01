@@ -3,9 +3,6 @@ import Component from "./Component.svelte";
 import { BROKE_VIEW_TYPE, BROKE_ICON } from 'src/main';
 import type BrokeViewerPlugin from 'src/main';
 import { writable, type Writable } from 'svelte/store';
-import { EventEmitter } from 'stream';
-import { error } from 'console';
-import { notEqual } from 'assert';
 
 export const data_store: Writable<string[][]> = writable([]);
 

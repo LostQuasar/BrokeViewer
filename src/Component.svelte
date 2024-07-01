@@ -1,14 +1,15 @@
 <script lang="ts">
-	import { onMount } from "svelte";
 	import { data_store } from "./BrokeListView";
+	import { tick } from 'svelte';
 	export let cols: Number;
-	let data_value: string[][];
 
-	data_store.subscribe((data_store: string[][]) => {
+	let data_value: string[][];
+	let gridDiv: HTMLDivElement;
+	data_store.subscribe(async (data_store: string[][]) => {
 		data_value = data_store;
+		await tick();
 		updateScreen();
 	});
-	let gridDiv: HTMLDivElement;
 
 	function shuffle(array: string[][]) {
 		let currentIndex = array.length,
@@ -29,19 +30,23 @@
 
 		return array;
 	}
+
 	function updateScreen() {
+		const data = shuffle(data_value);
 		const arrayDiv: HTMLDivElement[] = [];
 		const arrayP: HTMLParagraphElement[] = [];
 		const arrayA: HTMLAnchorElement[] = [];
-		for (let i = 0; i < data_value.length; i++) {
+		gridDiv.innerHTML = '';
+
+		for (let i = 0; i < data.length; i++) {
 			arrayA[i] = document.createElement("a");
-			arrayA[i].href = data_value[i][3];
+			arrayA[i].href = data[i][3];
 			arrayDiv[i] = document.createElement("div");
 			arrayDiv[i].className = "grid-item";
-			arrayDiv[i].style.backgroundImage = "url(" + data_value[i][2] + ")";
+			arrayDiv[i].style.backgroundImage = "url(" + data[i][2] + ")";
 			arrayP[i] = document.createElement("p");
 			arrayP[i].className = "grid-text";
-			arrayP[i].innerHTML = data_value[i][0] + "<br>" + data_value[i][1];
+			arrayP[i].innerHTML = data[i][0] + "<br>" + data[i][1];
 			gridDiv
 				.appendChild(arrayA[i])
 				.appendChild(arrayDiv[i])
@@ -49,8 +54,6 @@
 		}
 	}
 	
-	onMount(() => { updateScreen()});
-
 </script>
 
 <div bind:this={gridDiv} class="grid" style="--cols:{cols}"></div>
@@ -79,7 +82,7 @@
 		font-weight: 900;
 		color: #1b1b1b;
 		text-shadow:
-		#f6f6f6 0px 0px 6px,
-		#f6f6f6 0px 0px 12px
+			#f6f6f6 0px 0px 6px,
+			#f6f6f6 0px 0px 12px;
 	}
 </style>
