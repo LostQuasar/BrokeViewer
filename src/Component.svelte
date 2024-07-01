@@ -1,11 +1,12 @@
 <script lang="ts">
-	import { afterUpdate, onMount } from "svelte";
+	import { onMount } from "svelte";
 	import { data_store } from "./BrokeListView";
 	export let cols: Number;
 	let data_value: string[][];
 
 	data_store.subscribe((data_store: string[][]) => {
 		data_value = data_store;
+		updateScreen();
 	});
 	let gridDiv: HTMLDivElement;
 

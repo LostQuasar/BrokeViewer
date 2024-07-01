@@ -55,10 +55,8 @@ export class BrokeListView extends ItemView {
 			new Notice("Folder " + this.plugin.settings.list_folder + " could not be read.")
 			throw new Error('Folder could not be read.');
 		};
-		if (listFolder.children.length == 0){
-			new Notice("Folder Empty");
-		}
-		listFolder.children.forEach(async folderChild => {
+
+		for (const folderChild of listFolder.children){
 			let file = this.app.vault.getFileByPath(folderChild.path);
 			if (!file) {
 				new Notice("File " + folderChild.path + " could not be read.")
@@ -77,7 +75,7 @@ export class BrokeListView extends ItemView {
 			};
 
 			itemArray.push([file.name.replace('.md', ''), price[1], img[1], 'obsidian://open?vault=' + this.app.vault.getName() + '&file=' + (encodeURI(file.path))])
-		});
+		}
 		data_store.set(itemArray);
 	}
 }
