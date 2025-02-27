@@ -79,7 +79,7 @@
 		height: 0;
 		padding-bottom: calc(100% / var(--cols));
 		background-color: #ffffff;
-		background-size: 90%;
+		background-size: contain;
 		background-repeat: no-repeat;
 		background-position: center center;
 	}
