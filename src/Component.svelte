@@ -34,7 +34,8 @@
 	function updateScreen() {
 		const data = shuffle(data_value);
 		const arrayDiv: HTMLDivElement[] = [];
-		const arrayP: HTMLParagraphElement[] = [];
+		const arrayP1: HTMLParagraphElement[] = [];
+		const arrayP2: HTMLParagraphElement[] = [];
 		const arrayA: HTMLAnchorElement[] = [];
 		gridDiv.innerHTML = '';
 
@@ -44,13 +45,17 @@
 			arrayDiv[i] = document.createElement("div");
 			arrayDiv[i].className = "grid-item";
 			arrayDiv[i].style.backgroundImage = "url(" + data[i][2] + ")";
-			arrayP[i] = document.createElement("p");
-			arrayP[i].className = "grid-text";
-			arrayP[i].innerHTML = data[i][0] + "<br>" + data[i][1];
+			arrayP1[i] = document.createElement("p");
+			arrayP1[i].className = "grid-text";
+			arrayP1[i].innerHTML = data[i][0];
+			arrayP2[i] = document.createElement("p");
+			arrayP2[i].className = "align-bottom";
+			arrayP2[i].innerHTML = data[i][1];
 			gridDiv
 				.appendChild(arrayA[i])
 				.appendChild(arrayDiv[i])
-				.appendChild(arrayP[i]);
+				.appendChild(arrayP1[i])
+				.appendChild(arrayP2[i]);
 		}
 	}
 	
@@ -68,21 +73,28 @@
 		-webkit-transform: translateZ(0);
 		transform: translateZ(0);
 		transition: all 0.35s ease-in-out;
-		border: 10px solid var(--background-primary);
+		/* border: 10px solid var(--background-primary); */
+		margin: 10px;
+		border-radius: 10px;
 		height: 0;
-		padding-bottom: calc((100% / var(--cols)) - 20px);
+		padding-bottom: calc(100% / var(--cols));
 		background-color: #ffffff;
-		background-size: contain;
+		background-size: 90%;
 		background-repeat: no-repeat;
 		background-position: center center;
 	}
 	:global(.grid-text) {
-		margin: 24px;
-		font-size: 24px;
+		margin: 10%;
+		font-size: 1.25rem;
 		font-weight: 900;
 		color: #1b1b1b;
 		text-shadow:
 			#f6f6f6 0px 0px 6px,
 			#f6f6f6 0px 0px 12px;
+	}
+	:global(.align-bottom) {
+		position: absolute;
+		bottom: 0;
+		margin-left: 0;
 	}
 </style>
