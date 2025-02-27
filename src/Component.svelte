@@ -68,7 +68,7 @@
 		height: 100%;
 	}
 	:global(.grid-item) {
-		width: calc(100% / var(--cols));
+		width: calc(100% / var(--cols) - 20px);
 		float: left;
 		-webkit-transform: translateZ(0);
 		transform: translateZ(0);
@@ -77,7 +77,7 @@
 		margin: 10px;
 		border-radius: 10px;
 		height: 0;
-		padding-bottom: calc(100% / var(--cols));
+		padding-bottom: calc(100% / var(--cols) - 20px);
 		background-color: #ffffff;
 		background-size: contain;
 		background-repeat: no-repeat;

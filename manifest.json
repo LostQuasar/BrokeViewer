@@ -1,7 +1,7 @@
 {
 	"id": "broke-viewer",
 	"name": "Broke Viewer",
-	"version": "1.1.1",
+	"version": "1.1.2",
 	"minAppVersion": "0.15.0",
 	"description": "A thisiswhyimbroke inspired wishlist viewer.",
 	"author": "LostQuasar",
